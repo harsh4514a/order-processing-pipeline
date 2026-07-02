@@ -24,19 +24,6 @@ The application accepts CSV/XLSX files containing order records, stores the orig
 
 ---
 
-# Tech Stack
-
-- Node.js
-- Express.js
-- PostgreSQL
-- Google Cloud Storage
-- Multer
-- csv-parser
-- ExcelJS
-- Winston
-
----
-
 # Architecture
 
 ```text
