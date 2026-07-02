@@ -1,0 +1,45 @@
+{
+  "name": "order-app",
+  "version": "1.0.0",
+  "description": "Foundation architecture for a backend engineering assessment using Node.js, Express, PostgreSQL, and Google Cloud Storage.",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "migrate": "node src/database/migrationRunner.js",
+    "test": "jest --runInBand"
+  },
+  "keywords": [
+    "clean-architecture",
+    "express",
+    "postgresql",
+    "gcs",
+    "backend"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "@google-cloud/storage": "^7.14.0",
+    "compression": "^1.7.5",
+    "cors": "^2.8.5",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^16.4.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.5.1",
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0",
+    "multer": "^2.0.0",
+    "pg": "^8.12.0",
+    "winston": "^3.13.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.4",
+    "supertest": "^7.0.0"
+  }
+}
