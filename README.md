@@ -141,7 +141,7 @@ gcloud --version
 ## Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/harsh4514a/order-processing-pipeline.git
 cd order-app
 ```
 
