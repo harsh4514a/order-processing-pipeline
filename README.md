@@ -142,7 +142,7 @@ gcloud --version
 
 ```bash
 git clone https://github.com/harsh4514a/order-processing-pipeline.git
-cd order-app
+cd order-processing-pipeline
 ```
 
 ---
