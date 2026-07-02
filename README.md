@@ -303,7 +303,7 @@ Supported formats:
 Maximum file size:
 
 ```
-50 MB
+10 MB
 ```
 
 ---
