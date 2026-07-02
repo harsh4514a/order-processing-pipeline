@@ -45,12 +45,12 @@ Google Cloud Storage          Stream Parser
                             (Default: 500)
                                      │
                                      ▼
-                           Shard Router
+                               Shard Router
                                      │
-             ┌─────────────┬─────────────┬─────────────┐
-             ▼             ▼             ▼
-          Shard 1       Shard 2       Shard 3
-        PostgreSQL    PostgreSQL    PostgreSQL
+                       ┌─────────────┬─────────────┬
+                       ▼             ▼             ▼
+                    Shard 1       Shard 2       Shard 3
+                   PostgreSQL    PostgreSQL    PostgreSQL
 ```
 
 ---
