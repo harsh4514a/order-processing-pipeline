@@ -232,14 +232,6 @@ GCS_BUCKET_NAME=your-bucket-name
 
 ---
 
-## Create Upload Directory
-
-```bash
-mkdir uploads
-```
-
----
-
 ## Run the Application
 
 Development mode:
