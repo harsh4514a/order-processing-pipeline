@@ -113,100 +113,163 @@ This allows original files stored in GCS to be traced and retrieved later.
 
 ---
 
-# Google Cloud Storage Setup
+# Project Setup
 
-## 1. Install Google Cloud SDK
+## Prerequisites
 
-Install Google Cloud SDK:
+Make sure the following software is installed:
 
-https://cloud.google.com/sdk/docs/install
+- Node.js (v20 or later)
+- PostgreSQL
+- Git
+- Google Cloud CLI (`gcloud`)
+- DBeaver (Optional)
+- VS Code (Recommended)
 
-Initialize:
+Verify the installation:
 
 ```bash
-gcloud init
+node -v
+npm -v
+psql --version
+git --version
+gcloud --version
 ```
 
 ---
 
-## 2. Create a Bucket
+## Clone the Repository
 
 ```bash
-gcloud storage buckets create gs://YOUR_BUCKET_NAME --location=us-central1
+git clone <repository-url>
+cd order-app
 ```
 
 ---
 
-## 3. Authenticate Using ADC
+## Install Dependencies
+
+```bash
+npm install
+```
+
+---
+
+## Environment Configuration
+
+Create a `.env` file in the project root and configure the required environment variables.
+
+A sample configuration is available in:
+
+```
+env.example
+```
+
+---
+
+## PostgreSQL Setup
+
+Create three databases for application-level sharding:
+
+```sql
+CREATE DATABASE orders_shard1;
+CREATE DATABASE orders_shard2;
+CREATE DATABASE orders_shard3;
+```
+
+Verify the databases:
+
+```bash
+psql -l
+```
+
+---
+
+## Google Cloud Storage Setup
+
+### 1. Install Google Cloud CLI
+
+macOS
+
+```bash
+brew install --cask google-cloud-sdk
+```
+
+Verify installation:
+
+```bash
+gcloud --version
+```
+
+### 2. Login to Google Cloud
+
+```bash
+gcloud auth login
+```
+
+### 3. Configure Application Default Credentials (ADC)
 
 ```bash
 gcloud auth application-default login
 ```
 
-Application Default Credentials are used automatically by the Google Cloud Storage SDK.
-
-No service account JSON file is required.
-
----
-
-# How ADC Works
-
-Credential resolution order:
-
-1. Workload Identity / Metadata Server (Cloud Runtime)
-2. Local ADC credentials (`gcloud auth application-default login`)
-
-The application never stores credentials in source code.
-
----
-
-# Required IAM Permissions
-
-Required permissions:
-
-- storage.buckets.get
-- storage.objects.create
-- storage.objects.get
-- storage.objects.delete
-
-Recommended role:
-
-```
-roles/storage.objectAdmin
-```
-
----
-
-# Environment Variables
-
-Copy:
+### 4. Select Your Project
 
 ```bash
-cp env.example .env
+gcloud projects list
+gcloud config set project YOUR_PROJECT_ID
 ```
+
+### 5. Create a Storage Bucket
+
+Create a Google Cloud Storage bucket and update the bucket name in your `.env` file.
 
 Example:
 
-```env
-PORT=3000
-
-GCS_BUCKET_NAME=your-gcs-bucket-name
-GCS_UPLOAD_FOLDER=orders
-GCS_REQUEST_TIMEOUT_MS=30000
-GCS_ENFORCE_ADC=true
-
-DATABASE_URL_SHARD1=postgresql://postgres:postgres@localhost:5432/orders_shard1
-DATABASE_URL_SHARD2=postgresql://postgres:postgres@localhost:5432/orders_shard2
-DATABASE_URL_SHARD3=postgresql://postgres:postgres@localhost:5432/orders_shard3
-
-UPLOAD_MAX_FILE_SIZE_MB=50
-
-BATCH_INSERT_SIZE=500
+```
+GCS_BUCKET_NAME=your-bucket-name
 ```
 
-> Refer to `env.example` for the complete list.
+---
+
+## Create Upload Directory
+
+```bash
+mkdir uploads
+```
 
 ---
+
+## Run the Application
+
+Development mode:
+
+```bash
+npm run dev
+```
+
+Production mode:
+
+```bash
+npm start
+```
+
+---
+
+## Verify Setup
+
+Ensure the following are working correctly:
+
+- Node.js application starts successfully.
+- PostgreSQL shard databases are accessible.
+- Google Cloud Storage authentication succeeds.
+- GCS bucket is accessible.
+- Upload directory exists.
+- Logger initializes without errors.
+
+---
+
+```
 
 # Upload API
 
